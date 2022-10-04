@@ -7,7 +7,7 @@ node('dockerps3_host') {
           sudo pip3 install neoload==${cli_version}
           neoload --version"""
   }
-  stage('Uninstall the NLWeb CLI') {
+  stage('Login to the NLWeb CLI') {
     withCredentials([string(credentialsId: 'NLW_TOKEN', variable: 'NLW_TOKEN')]) {
       sh "neoload login --url ${api_url} --ssl-cert False $NLW_TOKEN"
     }
