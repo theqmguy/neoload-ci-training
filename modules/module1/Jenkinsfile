@@ -17,7 +17,7 @@ node('dockerps3_host') {
       sh "neoload login --url ${params.api_url} $NLW_TOKEN"
     }
   }
-  stage('Install the NLWeb CLI') {
+  stage('Create the NLWeb Test') {
     sh """workspaces use 'Default Workspace' \
           test-settings --zone ${params.zone_id} --lgs 1 --scenario 'api' --description 'Do NOT Delete (Build ${BUILD_NUMBER})' createorpatch ${params.tc_name} \
           project --path tests/neoload_projects/example_1/ upload ${params.tc_name}"""
