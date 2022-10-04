@@ -17,26 +17,26 @@ pipeline {
       stages {
         stage('Get NeoLoad CLI') {
           steps {
-            withEnv(["HOME=${env.WORKSPACE}"]) {
+            //withEnv(["HOME=${env.WORKSPACE}"]) {
               sh """python --version
                     pip3 --version
                     pip3 install neoload==${params.cli_version}
                     export PATH=$PATH:.local/bin
                     neoload --version"""
-            }
+           // }
           }
         }
-        stage('Checkout Project') {
-          steps {
-            withEnv(["HOME=${env.WORKSPACE}"]) {
-              checkout([$class: 'GitSCM', branches: [[name: "*/$CPV_ENV"]], doGenerateSubmoduleConfigurations: false, extensions: [[$class: 'RelativeTargetDirectory', relativeTargetDir: 'neoload-project-${BUILD_NUMBER}']], submoduleCfg: [], userRemoteConfigs: [[credentialsId: 'CodeCommit', url: 'http://jenkins:9090/git/tester/CPVWeatherCrisis.git']]])
-              sh """ls -la neoload-project-${BUILD_NUMBER}"""
-            }
-          }
-        }
+       // stage('Checkout Project') {
+       //   steps {
+       //     withEnv(["HOME=${env.WORKSPACE}"]) {
+        //      checkout([$class: 'GitSCM', branches: [[name: "*/$CPV_ENV"]], doGenerateSubmoduleConfigurations: false, extensions: [[$class: 'RelativeTargetDirectory', relativeTargetDir: 'neoload-project-${BUILD_NUMBER}']], submoduleCfg: [], userRemoteConfigs: [[credentialsId: 'CodeCommit', url: 'http://jenkins:9090/git/tester/CPVWeatherCrisis.git']]])
+         //     sh """ls -la neoload-project-${BUILD_NUMBER}"""
+          //  }
+        //  }
+       // }
         stage('Prepare Neoload test') {
           steps {
-            withEnv(["HOME=${env.WORKSPACE}"]) {
+            //withEnv(["HOME=${env.WORKSPACE}"]) {
             withCredentials([string(credentialsId: 'SEC_TOKEN', variable: 'NLW_TOKEN')]) {
               sh """export PATH=$PATH:.local/bin
                     neoload \
@@ -46,7 +46,7 @@ pipeline {
                      project --path tests/neoload_projects/example_1/ upload
                 """
             }
-            }
+           // }
           }
         }
         stage('Run Test') {
