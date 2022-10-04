@@ -1,10 +1,13 @@
+properties([
+  parameters([
+    string(defaultValue: "1.3.9", description: 'CLI Version', name: 'cli_version'),
+    choice(name: 'zone_id', choices: ['defaultzone', 'jlREk'], description: 'Zone Identifier (1. Static or 2. Dynamic)'),
+    string(defaultValue: "https://dockerps3.apps.neotys.com:8080", description: 'NeoLoad Web Api Url', name: 'api_url'),
+    string(defaultValue: "nwilliams_TC", description: 'Unique Test Case Name', name: 'test_name')
+  ])
+])
+
 node('dockerps3_host') {
-  parameters {
-    string(defaultValue: "1.3.9", description: 'CLI Version', name: 'cli_version')
-    choice(name: 'zone_id', choices: ['defaultzone', 'jlREk'], description: 'Zone Identifier (1. Static or 2. Dynamic)')
-    string(defaultValue: "https://dockerps3.apps.neotys.com:8080", description: 'NeoLoad Web Api Url', name: 'api_url')
-    string(defaultValue: "nwilliams_TC", description: 'Unique Test Case Name', name: 'test_name')  
-  }
   stage('Install the NLWeb CLI') {
     sh """python3 --version
           pip3 --version
