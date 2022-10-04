@@ -9,7 +9,7 @@ node('dockerps3_host') {
   }
   stage('Uninstall the NLWeb CLI') {
     withCredentials([string(credentialsId: 'NLW_TOKEN', variable: 'NLW_TOKEN')]) {
-      sh "neoload login --url ${api_url} $NLW_TOKEN"
+      sh "neoload login --url ${api_url} $NLW_TOKEN --ssl-cert False"
     }
   }
   stage('Create the NLWeb Test') {
