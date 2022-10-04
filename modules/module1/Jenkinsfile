@@ -4,8 +4,9 @@ pipeline {
   environment {
     docker_label="python:3-alpine"
     nlw_host="dockerps3.apps.neotys.com"
-    api_url="https://${env.nlw_host}:443"
+    api_url="https://${env.nlw_host}:8080"
     zone_id="defaultzone"
+    cli_version="1.3.9"
   }
 
   stages {
@@ -25,13 +26,18 @@ pipeline {
       agent {
         docker {
           image "${env.docker_label}"
-          args "--add-host ${env.nlw_host}:${env.host_ip} -e HOME=${env.WORKSPACE} -e PYTHONUNBUFFERED=1"
+          //args "--add-host ${env.nlw_host}:${env.host_ip} -e HOME=${env.WORKSPACE} -e PYTHONUNBUFFERED=1"
         }
       }
       stages {
         stage('Prepare agent') {
           steps {
-            sh 'neoload --version'
+            withEnv(["HOME=${env.WORKSPACE}"]) {
+              sh """python --version
+                    pip3 --version
+                    pip3 install neoload==${env.cli_version}
+                    export PATH=$PATH:.local/bin
+                    neoload --version"""
             withCredentials([string(credentialsId: 'NLW_TOKEN', variable: 'NLW_TOKEN')]) {
               sh "neoload login --url ${env.api_url} $NLW_TOKEN"
             }
