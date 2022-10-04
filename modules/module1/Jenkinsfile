@@ -12,7 +12,7 @@ node('dockerps3_host') {
       sh "neoload login --url ${api_url} --ssl-cert False $NLW_TOKEN"
     }
   }
-  stage('Create the NLWeb Test') {
+  stage('Checkout the NL project') {
     checkout([$class: 'GitSCM', branches: [[name: '*/master']], extensions: [[$class: 'RelativeTargetDirectory', relativeTargetDir: 'neoload-project-${BUILD_NUMBER}']], userRemoteConfigs: [[credentialsId: 'theqmguy', url: 'https://github.com/theqmguy/neoload-ci-training.git']]])
   }
   stage('Create the NLWeb Test') {
