@@ -1,5 +1,5 @@
 pipeline {
-  agent none
+  agent dockerps3-host
 
   environment {
     docker_label="python:3-alpine"
