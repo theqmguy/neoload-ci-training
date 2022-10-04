@@ -38,6 +38,7 @@ pipeline {
                     pip3 install neoload==${env.cli_version}
                     export PATH=$PATH:.local/bin
                     neoload --version"""
+            }
             withCredentials([string(credentialsId: 'NLW_TOKEN', variable: 'NLW_TOKEN')]) {
               sh "neoload login --url ${env.api_url} $NLW_TOKEN"
             }
