@@ -3,8 +3,8 @@ pipeline {
 
   environment {
     docker_label="nljenkinsagent"
-    nlw_host="nlweb.shared"
-    api_url="http://${env.nlw_host}:8080"
+    nlw_host="dockerps3.apps.neotys.com"
+    api_url="https://${env.nlw_host}:443"
     zone_id="defaultzone"
   }
 
