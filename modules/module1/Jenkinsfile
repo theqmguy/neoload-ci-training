@@ -25,7 +25,6 @@ node('dockerps3_host') {
   }
 }
 /*
-checkout([$class: 'GitSCM', branches: [[name: '*/master']], extensions: [[$class: 'RelativeTargetDirectory', relativeTargetDir: 'neoload-project-${BUILD_NUMBER}']], userRemoteConfigs: [[credentialsId: 'theqmguy', url: 'https://github.com/theqmguy/neoload-ci-training.git']]])
 node('dockerps3_host') {
     stage('Checkout/Clone GIT NL project') {
         // Get NL project
