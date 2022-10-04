@@ -1,3 +1,54 @@
+node('dockerps3_host') {
+    stage('Install the NLWeb CLI') {
+      steps {
+        sh """python --version
+              pip3 --version
+              sudo pip3 install neoload==1.3.9
+              neoload --version"""
+      }
+    }
+    stage('Uninstall the NLWeb CLI') {
+      steps {
+        sh """sudo pip3 uninstall --yes neoload==1.3.9"""
+      }   
+    }
+
+/*
+
+node('dockerps3_host') {
+    stage('Checkout/Clone GIT NL project') {
+        // Get NL project
+        git branch: 'master', credentialsId: 'ee932196-cedc-4ba1-a204-5d8a705c74ac', url: 'https://bitbucket.org/neils-bit/GitDemo_v680'
+    }
+    stage('Generate YAML') {
+        // some block
+        writeFile file: 'generated_scen.yaml', text: 
+        '''scenarios:
+        - name: ''' +"${Scenario}"+'''
+          populations:
+          - name: Jenkins Population
+            constant_load:
+              users: ''' +"${Users}"+'''
+              duration: ''' +"${Duration}"
+    }
+    stage('Remove Log Files') {
+        // remove the log files
+        //sh 'rm /root/.neotys/neoload/v7.7/logs/*.*'
+     }
+    stage('Run NL Demo Test') {
+        neoloadRun executable: '/opt/Neoload7.7/bin/NeoLoadCmd', project: "${WORKSPACE}/GitDemo_v680.nlp", testName: 'Result of Jenkins (v7.7) Pipeline Scenario - $Date{hh:mm - dd MMM yyyy} (build ${BUILD_NUMBER})', testDescription: 'My jenkins pipeline run...on v7.7', commandLineOption: "-project '${WORKSPACE}/generated_scen.yaml' -nlweb -nlwebAPIURL https://dockerps3.apps.neotys.com:8080 -nlwebToken AR9bpYYCIUsJIFOo0ed7Ksxi -variables sla_failure=${SLA} -exitCodeFailIgnore", scenario: "${Scenario}", sharedLicense: [server: 'My Neoload Web', duration: 2, vuCount: "${Users}"], trendGraphs: [[name: 'Average Duration Across Builds', curve: ['Jenkins Demo>Actions>some_transaction_filler'], statistic: 'average'], 'AvgResponseTime', 'ErrorRate'], autoArchive: 'false'
+        neoloadRefreshTrends(trendGraphs: [[name: 'Average Duration Across Builds', curve: ['Jenkins Demo>Actions>transaction_filler'], statistic: 'average'], 'AvgResponseTime', 'ErrorRate'])
+    }
+    stage('Backup Log Files') {
+        // backup log files from run
+        sh 'cp -R /root/.neotys/neoload/v7.7/logs "${WORKSPACE}/neoload-report/logs"'
+    }
+    stage('Archive and JUnit') {
+        archiveArtifacts "neoload-report/**"
+        junit "neoload-report/junit*.xml"
+    }
+}
+
 pipeline {
   agent none
 
@@ -59,3 +110,4 @@ pipeline {
     }
   }
 }
+*/
