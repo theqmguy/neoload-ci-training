@@ -24,7 +24,7 @@ pipeline {
     stage('Attach Worker') {
       agent {
         docker {
-          image "${env.docker_label}:latest"
+          image "${env.docker_label}"
           args "--add-host ${env.nlw_host}:${env.host_ip} -e HOME=${env.WORKSPACE} -e PYTHONUNBUFFERED=1"
         }
       }
