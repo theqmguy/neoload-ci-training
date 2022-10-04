@@ -2,7 +2,7 @@ pipeline {
   agent none
 
   environment {
-    docker_label="nljenkinsagent"
+    docker_label="python:3-alpine"
     nlw_host="dockerps3.apps.neotys.com"
     api_url="https://${env.nlw_host}:443"
     zone_id="defaultzone"
