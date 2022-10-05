@@ -22,7 +22,6 @@ node('dockerps3_host') {
   }
   stage('Execute the NLWeb Test') {
     sh """neoload run \
-          --detached \
           --return-0 \
           --web-vu 20 \
           ${test_name}"""
