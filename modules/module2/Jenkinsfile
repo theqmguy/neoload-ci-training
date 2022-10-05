@@ -18,7 +18,7 @@ node('dockerps3_host') {
   stage('Create the NLWeb Test') {
     //steps {
       script {
-        def verify_zone_id = ${zone_id}
+        def verify_zone_id = zone_id
         if(verify_zone_id.trim().toLowerCase().equals("null")) verify_zone_id = ""
         if(verify_zone_id.trim().length() < 1) // dynamically pick a zone
           verify_zone_id = sh(script: "neoload zones | jq '[.[]|select((.controllers|select(.[].status==\"AVAILABLE\")|length>0) and (.loadgenerators|select(.[].status==\"AVAILABLE\")|length>0) and (.type==\"STATIC\"))][0] | .id' -r", returnStdout: true).trim()
