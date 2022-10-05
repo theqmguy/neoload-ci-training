@@ -17,7 +17,7 @@ node('dockerps3_host') {
   }
   stage('Create the NLWeb Test') {
     sh """neoload workspaces use 'Default Workspace' \
-          test-settings --zone ${zone_id} --lgs 1 --scenario 'api' --description 'Do NOT Delete (Build ${BUILD_NUMBER})' createorpatch ${test_name} \
+          test-settings --zone ${zone_id} --lgs 1 --scenario sanityScenario --description 'Do NOT Delete (Build ${BUILD_NUMBER})' createorpatch ${test_name} \
           project --path "$WORKSPACE/neoload-project-${BUILD_NUMBER}/tests/neoload_projects/example_1/" upload ${test_name}"""
   }
   stage('Execute the NLWeb Test') {
