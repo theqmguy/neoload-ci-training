@@ -25,6 +25,8 @@ node('dockerps3_host') {
           --web-vu 20 \
           --detached \
           ${test_name}"""
+    sh "neoload logs-url cur"
+    sh "neoload fastfail --max-failure 25 slas cur"
   }
   //stage('Publish Results to Jenkins') {
   //  sh """neoload test-results junitsla"""
