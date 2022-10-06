@@ -33,45 +33,6 @@ node('dockerps3_host') {
   //  sh "sed -i 's/\\<br\\/\\>/\\n/g' junit-sla.xml"
   //  junit 'junit-sla.xml'
   //}
-  stage('Reports') {
-    sh "mkdir -p reports"
-                      //script {
-                        sh """neoload report --filter='timespan=10%-90%' \
-                              --template builtin:transactions-csv \
-                              --out-file reports/neoload-transactions.csv \
-                              cur
-                         """
-
-                        sh """neoload report --filter='timespan=10%-90%' \
-                              --template reporting/jinja/sample-custom-report.html.j2 \
-                              --out-file reports/neoload-results.html \
-                              cur
-                         """
-                        publishHTML (target: [
-                           allowMissing: false,
-                           alwaysLinkToLastBuild: false,
-                           keepAll: true,
-                           reportDir: 'reports',
-                           reportFiles: 'neoload-results.html',
-                           reportName: "NeoLoad Test Results"
-                        ])
-
-                        sh """neoload report --filter='timespan=10%-90%;results=-5' \
-                              --template reporting/jinja/sample-trends-report.html.j2 \
-                              --out-file reports/neoload-trends.html \
-                              --type trends \
-                              cur
-                         """
-                        publishHTML (target: [
-                           allowMissing: false,
-                           alwaysLinkToLastBuild: false,
-                           keepAll: true,
-                           reportDir: 'reports',
-                           reportFiles: 'neoload-trends.html',
-                           reportName: "NeoLoad Trends (Custom)"
-                         ]) 
-                      //}
-  }
   stage('Uninstall the NLWeb CLI') {
     sh """sudo pip3 uninstall --yes neoload==${cli_version}"""  
   }
