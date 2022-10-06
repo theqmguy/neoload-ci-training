@@ -33,9 +33,6 @@ node('dockerps3_host') {
   //  sh "sed -i 's/\\<br\\/\\>/\\n/g' junit-sla.xml"
   //  junit 'junit-sla.xml'
   //}
-  stage('Uninstall the NLWeb CLI') {
-    sh """sudo pip3 uninstall --yes neoload==${cli_version}"""  
-  }
   stage('Reports') {
     sh "mkdir -p reports"
                       //script {
@@ -75,5 +72,7 @@ node('dockerps3_host') {
                          ]) 
                       //}
   }
-  
+  stage('Uninstall the NLWeb CLI') {
+    sh """sudo pip3 uninstall --yes neoload==${cli_version}"""  
+  }
 }
