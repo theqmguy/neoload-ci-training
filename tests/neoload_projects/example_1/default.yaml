@@ -62,7 +62,7 @@ scenarios:
   - name: popGets
     rampup_load:
       min_users: 1
-      max_users: 25
+      max_users: 10
       increment_users: 2
       increment_every: 5s
       duration: 5m
