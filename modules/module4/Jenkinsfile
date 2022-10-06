@@ -38,7 +38,7 @@ node('dockerps3_host') {
   }
   stage('Reports') {
     sh "mkdir -p reports"
-                      script {
+                      //script {
                         sh """neoload report --filter='timespan=10%-90%' \
                               --template builtin:transactions-csv \
                               --out-file reports/neoload-transactions.csv \
@@ -73,7 +73,7 @@ node('dockerps3_host') {
                            reportFiles: 'neoload-trends.html',
                            reportName: "NeoLoad Trends (Custom)"
                          ]) 
-                      }
+                      //}
   }
   
 }
