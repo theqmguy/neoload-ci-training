@@ -23,6 +23,7 @@ node('dockerps3_host') {
   stage('Execute the NLWeb Test') {
     sh """neoload run \
           --web-vu 20 \
+          --as-code default.yaml,slas/uat.yaml \
           ${test_name}"""
   }
   stage('Publish Results to Jenkins') {
