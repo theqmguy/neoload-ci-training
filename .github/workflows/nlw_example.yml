@@ -13,7 +13,7 @@ on:
       zone_id:
         required: true
         description: 'Zone identifier'
-        default: 'defaultzone'
+        default: 'fNCnQ'
 
 jobs:
   neoload_cli_demo:
